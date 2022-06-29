@@ -16,12 +16,14 @@ PS1='\u@\h \W\$ '
 alias ls='ls -a --color=auto'
 alias rl='. ~/.bashrc'
 alias vim=nvim
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias recent='cat /var/log/pacman.log | grep "installed\|removed"'
 alias battery='cat /sys/class/power_supply/BAT0/capacity'
 # /Aliases
 
 # BTRFS
-rollback() {
-	sudo snapper --ambit classic rollback "$1"
+snapperundo() {
+	sudo snapper -v undochange "$1".."$2"
 }
 # /BTRFS
 
@@ -46,7 +48,6 @@ daur() {
 	sudo pacman -Rns "$1"
 	rm -rf ~/aur/"$1"
 }
-# TODO: update aur packages
 # /AUR
 
 # Internet
