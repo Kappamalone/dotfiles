@@ -19,9 +19,20 @@ alias vim=nvim
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias recent='cat /var/log/pacman.log | grep "installed\|removed"'
 alias battery='cat /sys/class/power_supply/BAT0/capacity'
+alias rmlock='sudo rm /var/lib/pacman/db.lck'
 # /Aliases
 
 # BTRFS
+snapperrollback() {
+	sudo snapper-rollback "$1"
+}
+
+# For when booting from GRUB
+# Run snappercopy then snapperrollback #
+snappercopy() {
+	sudo snapper --config root create --cleanup-algorithm number -d 'rw copy' --read-write 
+}
+
 snapperundo() {
 	sudo snapper -v undochange "$1".."$2"
 }
