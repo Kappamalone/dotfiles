@@ -16,7 +16,6 @@ PS1='\u@\h \W\$ '
 alias ls='ls -a --color=auto'
 alias rl='. ~/.bashrc'
 alias vim=nvim
-alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias recent='cat /var/log/pacman.log | grep "installed\|removed"'
 alias battery='cat /sys/class/power_supply/BAT0/capacity'
 alias rmlock='sudo rm /var/lib/pacman/db.lck'
@@ -28,7 +27,7 @@ snapperrollback() {
 }
 
 # For when booting from GRUB
-# Run snappercopy then snapperrollback #
+# Run snappercopy, then snapperrollback #id
 snappercopy() {
 	sudo snapper --config root create --cleanup-algorithm number -d 'rw copy' --read-write 
 }
