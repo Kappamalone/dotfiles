@@ -7,7 +7,6 @@
 
 # Startup 
 clear
-setfont ter-132n
 paleofetch
 PS1='\u@\h \W\$ '
 # /Startup
@@ -20,6 +19,12 @@ alias recent='cat /var/log/pacman.log | grep "installed\|removed"'
 alias battery='cat /sys/class/power_supply/BAT0/capacity'
 alias rmlock='sudo rm /var/lib/pacman/db.lck'
 # /Aliases
+
+# Misc
+cleanexec () {
+	chmod +x "$1" && "$1" && chmod 644 "$1"
+}
+# /Misc
 
 # BTRFS
 snapperrollback() {
@@ -37,29 +42,6 @@ snapperundo() {
 }
 # /BTRFS
 
-# AUR
-iaur() {
-	cwd=$PWD
-	git clone https://aur.archlinux.org/"$1" ~/aur/"$1"
-	cd ~/aur/"$1"
-	makepkg -si 
-	cd "$cwd" 
-}
-
-uaur() {
-	cwd=$PWD
-	cd ~/aur/"$1"
-	git pull
-	makepkg -si
-	cd "$cwd" 
-}
-
-daur() {
-	sudo pacman -Rns "$1"
-	rm -rf ~/aur/"$1"
-}
-# /AUR
-
 # Internet
 # TODO: what do ethernet
 lwifi() {
@@ -74,5 +56,3 @@ dwifi() {
 	sudo nmcli device disconnect "$1"
 }
 # /Internet
-
-
