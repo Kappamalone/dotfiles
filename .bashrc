@@ -4,10 +4,10 @@
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+export PATH=~/.local/bin/:$PATH
 
 # Startup 
 clear
-paleofetch
 PS1='\u@\h \W\$ '
 # /Startup
 
@@ -23,6 +23,10 @@ alias rmlock='sudo rm /var/lib/pacman/db.lck'
 # Misc
 cleanexec () {
 	chmod +x "$1" && "$1" && chmod 644 "$1"
+}
+
+addwallpaper () {
+	cp "$1" ~/dotfiles/wallpapers/
 }
 # /Misc
 
