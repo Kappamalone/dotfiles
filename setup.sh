@@ -23,3 +23,7 @@ echo
 # link .config
 cp -rsv -f ~/dotfiles/.config/* ~/.config/
 echo "Linked ~/dotfiles with ~/.config"
+
+# install zsh plugins
+yay -S --needed zsh-autosuggestions 
+yay -S --needed zsh-syntax-highlighting 
