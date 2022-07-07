@@ -6,13 +6,17 @@
 XF86AudioMute
 	amixer set Master toggle
 XF86AudioLowerVolume 
-	amixer set Master 5%-
+	pamixer --allow-boost --set-limit 150 --decrease 5
 XF86AudioRaiseVolume
-	amixer set Master 5%+
+	pamixer --allow-boost --set-limit 150 --increase 5
 XF86MonBrightnessDown
 	xbacklight -dec 10
 XF86MonBrightnessUp
 	xbacklight -inc 10
+
+# Browser
+super + b
+	firefox
 
 # terminal emulator
 super + Return
@@ -29,6 +33,10 @@ super + Escape
 #
 # bspwm hotkeys
 #
+
+# fullscreen toggle
+super + f 
+	bspc node -t '~fullscreen'
 
 # quit/restart bspwm
 super + alt + {q,r}
