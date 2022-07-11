@@ -5,12 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Startup Commands
 clear
+export CC="/usr/bin/clang"
+export CXX="/usr/bin/clang++"
 
 # Aliases
+alias todo='nvim ~/todo'
 alias ls='ls -a --color=auto'
-alias rl='. ~/.zshrc'
+alias rl='exec zsh'
 alias vim=nvim
 alias fzfvim='nvim $(find ~/* | fzf)'
 alias fzfcd='cd $(find ~/* -type d | fzf)'
@@ -27,6 +29,10 @@ cleanexec () {
 
 addwallpaper () {
 	cp "$1" ~/dotfiles/wallpapers/
+}
+
+histsearch () {
+    cat ~/.cache/zsh/history | grep "$1"
 }
 # /Misc
 
@@ -66,7 +72,7 @@ dwifi() {
 
 # Enable colors and change prompt:
 autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+# PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
 # History in cache directory:
 HISTSIZE=10000
@@ -123,12 +129,17 @@ zle-fzfvim() {
 zle -N  zle-fzfvim
 bindkey '^f' zle-fzfvim
 
+# zsh-autosuggestions
+bindkey '^ ' autosuggest-accept
+
+# Prompt
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 # Plugins
 plugindir='/usr/share/zsh/plugins'
 source "$plugindir"/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 source "$plugindir"/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-# eval "$(starship init zsh)"
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

@@ -47,7 +47,7 @@ xinput --set-prop $touchpadID 'libinput Natural Scrolling Enabled' 1
 # Fix sluggish repeat key speed
 xset r rate 180 25
 
-feh --bg-fill ~/dotfiles/wallpapers/default &
+feh --bg-fill ~/dotfiles/wallpapers/pixelart_house_chibi_person_game.png &
 picom --experimental-backends &
 # polybar default &
 sxhkd &
