@@ -17,6 +17,7 @@ alias vim=nvim
 alias fzfvim='nvim $(find ~/* | fzf)'
 alias fzfcd='cd $(find ~/* -type d | fzf)'
 alias fzfcat='cat $(find ~/* | fzf)'
+alias ghidra='_JAVA_AWT_WM_NONREPARENTING=1 /opt/ghidra/ghidraRun'
 alias recent='cat /var/log/pacman.log | grep "installed\|removed"'
 alias battery='cat /sys/class/power_supply/BAT0/capacity'
 alias wattage="awk '{print \$1*10^-6 \" W\"}' /sys/class/power_supply/BAT0/power_now"
@@ -141,5 +142,3 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 plugindir='/usr/share/zsh/plugins'
 source "$plugindir"/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 source "$plugindir"/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-
-

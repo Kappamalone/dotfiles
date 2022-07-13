@@ -34,10 +34,6 @@ super + Escape
 # bspwm hotkeys
 #
 
-# fullscreen toggle
-super + f 
-	bspc node -t '~fullscreen'
-
 # quit/restart bspwm
 super + alt + {q,r}
 	bspc {quit,wm -r}

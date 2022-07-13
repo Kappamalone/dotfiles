@@ -6,6 +6,6 @@ font_family             TamzenForPowerline
 font_size               20.0
 
 # BEGIN_KITTY_THEME
-# Gruvbox Material Dark Soft
+# Nord
 include current-theme.conf
 # END_KITTY_THEME
