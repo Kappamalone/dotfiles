@@ -5,9 +5,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-clear
+clear 
+
 export CC="/usr/bin/clang"
 export CXX="/usr/bin/clang++"
+export CMAKE_GENERATOR="Ninja"
 
 # Aliases
 alias todo='nvim ~/todo'

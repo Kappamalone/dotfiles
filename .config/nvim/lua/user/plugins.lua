@@ -35,13 +35,12 @@ return packer.startup(function(use)
     -- Setup
 	use "wbthomason/packer.nvim"
 	use "nvim-lua/plenary.nvim"
-    
+
     -- LSP
 	use "neovim/nvim-lspconfig"
 	use "williamboman/nvim-lsp-installer"
    	use 'ms-jpq/coq_nvim'
    	use 'ms-jpq/coq.artifacts'
-
 
     -- Misc
 	use "nvim-telescope/telescope.nvim"
@@ -51,7 +50,8 @@ return packer.startup(function(use)
 	use "windwp/nvim-autopairs"
 	use "akinsho/toggleterm.nvim"
 	use "lewis6991/impatient.nvim"
-    use "Pocco81/AutoSave.nvim"
+    use 'ggandor/lightspeed.nvim'
+    use 'sbdchd/neoformat'
 
     -- Theme
 	use "sainnhe/gruvbox-material"

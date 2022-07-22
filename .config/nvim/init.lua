@@ -3,7 +3,7 @@
 require "impatient"
 require "user.plugins"
 
--- Colorscheme
+--- Colorscheme
 vim.opt.termguicolors = true
 vim.o.background = "dark"
 vim.g.gruvbox_material_background = 'hard'
@@ -32,6 +32,7 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 8
 vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
+vim.opt.splitright = true
 
 -- Keymaps
 local keymap = vim.keymap.set
@@ -39,31 +40,10 @@ local opts = { silent = true }
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 
--- Autosave
-local autosave = require("autosave")
-
-autosave.setup(
-{
-    enabled = true,
-    execution_message = "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"),
-    events = {"InsertLeave", "TextChanged"},
-    conditions = {
-        exists = true,
-        filename_is_not = {},
-        filetype_is_not = {},
-        modifiable = true
-    },
-    write_all_buffers = false,
-    on_off_commands = true,
-    clean_command_line_interval = 0,
-    debounce_delay = 135
-}
-)
-
 -- LSP and Coq
 -- Run :LspInstallInfo, then :LspInstall <server>
 -- Run :LspInfo to check currently running lsp
-require("nvim-lsp-installer").setup {}
+require("nvim-lsp-installer").setup()
 local lspconfig = require("lspconfig")
 vim.g.coq_settings = {
     auto_start = 'shut-up',
@@ -77,8 +57,8 @@ vim.g.coq_settings = {
         },
     },
 }
-local coq = require("coq")
 
+local coq = require("coq")
 lspconfig.sumneko_lua.setup{
     coq.lsp_ensure_capabilities(),
     settings = {
@@ -89,12 +69,16 @@ lspconfig.sumneko_lua.setup{
         }
     }
 }
-lspconfig.ccls.setup{coq.lsp_ensure_capabilities()}
+lspconfig.clangd.setup{coq.lsp_ensure_capabilities()}
 lspconfig.gopls.setup{coq.lsp_ensure_capabilities()}
+lspconfig.rust_analyzer.setup{coq.lsp_ensure_capabilities()}
 
 -- NvimTree
 require("nvim-tree").setup()
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+
+-- Lightspeed
+require("lightspeed")
 
 -- Telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
@@ -106,17 +90,14 @@ keymap("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
 vim.keymap.set('n', '<Leader>p', ':Glow<CR>')
 
 -- ToggleTerm
-local status_ok, toggleterm = pcall(require, "toggleterm")
-if not status_ok then
-    return
-end
-
+local toggleterm = require("toggleterm")
+keymap("n", "<C-s>", ":w<CR>", opts) -- TODO: can you also bind <C-Bslash> to save without overwriting toggleterm?
 toggleterm.setup({
     size = 20,
     open_mapping = [[<c-\>]],
     hide_numbers = true,
-    shade_terminals = true,
-    shading_factor = 1,
+    shade_terminals = false,
+    shading_factor = 0,
     start_in_insert = true,
     insert_mappings = true,
     persist_size = true,
@@ -128,19 +109,8 @@ toggleterm.setup({
     },
 })
 
--- what does this do?
-function _G.set_terminal_keymaps()
-    local opts = {noremap = true}
-    -- vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-    vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
-    vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
-    vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
-    vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
-end
 
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-
--- Autopairs
+-- Autopairs TODO: clean this up
 local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
 
@@ -183,15 +153,19 @@ MUtils.BS = function()
 end
 remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
+-- Neoformat
+vim.cmd[[
+    augroup fmt
+        autocmd!
+        autocmd BufWritePre * undojoin | Neoformat
+    augroup END
+]]
 
 -- For some reason if this is loaded before certain plugins (ToggleTerm) it breaks them?
 -- Treesitter (I have no idea what  this does)
-local status_ok, configs = pcall(require, "nvim-treesitter.configs")
-if not status_ok then
-    return
-end
+local nvim_treesitter = require("nvim-treesitter.configs")
 
-configs.setup({
+nvim_treesitter.setup({
     ensure_installed = "all", -- one of "all" or a list of languages
     ignore_install = { "" },  -- List of parsers to ignore installing
     highlight = {
