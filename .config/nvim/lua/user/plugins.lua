@@ -39,8 +39,11 @@ return packer.startup(function(use)
     -- LSP
 	use "neovim/nvim-lspconfig"
 	use "williamboman/nvim-lsp-installer"
-   	use 'ms-jpq/coq_nvim'
-   	use 'ms-jpq/coq.artifacts'
+
+    -- Completion
+    use "ms-jpq/coq_nvim"
+    use "ms-jpq/coq.artifacts"
+
 
     -- Misc
 	use "nvim-telescope/telescope.nvim"
@@ -52,6 +55,8 @@ return packer.startup(function(use)
 	use "lewis6991/impatient.nvim"
     use 'ggandor/lightspeed.nvim'
     use 'sbdchd/neoformat'
+    use "Pocco81/AutoSave.nvim"
+    use 'nmac427/guess-indent.nvim'
 
     -- Theme
 	use "sainnhe/gruvbox-material"

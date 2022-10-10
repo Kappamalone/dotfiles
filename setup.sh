@@ -25,9 +25,10 @@ cp -rsv -f ~/dotfiles/.config/* ~/.config/
 echo "Linked ~/dotfiles with ~/.config"
 
 # install zsh plugins
-yay -S --needed zsh-autosuggestions 
-yay -S --needed zsh-syntax-highlighting 
-yay -S --needed zsh-theme-powerlevel10k-git
+# yay -S --needed zsh-autosuggestions 
+# yay -S --needed zsh-syntax-highlighting 
+# yay -S --needed zsh-theme-powerlevel10k-git
 
 # install fonts
-yay -S --needed tamzen-font
+# yay -S --needed tamzen-font
+*/

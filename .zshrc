@@ -10,19 +10,20 @@ clear
 export CC="/usr/bin/clang"
 export CXX="/usr/bin/clang++"
 export CMAKE_GENERATOR="Ninja"
+export MOZ_USE_XINPUT2=1
 
 # Aliases
-alias todo='nvim ~/todo'
-alias ls='ls -a --color=auto'
+alias ls='ls --color=auto'
 alias rl='exec zsh'
 alias vim=nvim
 alias fzfvim='nvim $(find ~/* | fzf)'
 alias fzfcd='cd $(find ~/* -type d | fzf)'
 alias fzfcat='cat $(find ~/* | fzf)'
-alias ghidra='_JAVA_AWT_WM_NONREPARENTING=1 /opt/ghidra/ghidraRun'
+alias ghidra='sudo _JAVA_AWT_WM_NONREPARENTING=1 /opt/ghidra/ghidraRun'
 alias recent='cat /var/log/pacman.log | grep "installed\|removed"'
 alias battery='cat /sys/class/power_supply/BAT0/capacity'
 alias wattage="awk '{print \$1*10^-6 \" W\"}' /sys/class/power_supply/BAT0/power_now"
+alias gbuds="bluetoothctl connect 80:9F:F5:0D:C1:A4"
 # /Aliases
 
 # Misc
@@ -36,6 +37,11 @@ addwallpaper () {
 
 histsearch () {
     cat ~/.cache/zsh/history | grep "$1"
+}
+
+extractarchive() {
+    bsdtar -xzvf "$1"
+    rm "$1"
 }
 # /Misc
 
