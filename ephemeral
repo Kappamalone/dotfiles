@@ -1,0 +1,16 @@
+TODO: 
+    prettier_d, linting, better vue tooling
+    look into org mode for neovim (organise your life??)
+    EWW widgets with wifi, bluetooth gui (fix bluetooth desync?)
+    configure polybar
+    configure thunar?
+    figure out how to configure gtk
+    clean up packages, configs, dotfiles
+
+    learning app ideas: 
+      3D snake
+
+    3d vr-chat-esque online chat app:
+        peer to peer (with main server for connecting)
+        uses some sort of 3d lib (three.js)
+        custom user models / levels

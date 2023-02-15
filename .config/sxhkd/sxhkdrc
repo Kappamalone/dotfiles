@@ -22,6 +22,9 @@ super + b
 super + Return
 	kitty
 
+super + shift + Return
+	bspc rule -a \* -o state=floating center=true rectangle=1376x625+0+0 sticky=on && kitty
+
 # program launcher
 super + @space
 	rofi -show drun

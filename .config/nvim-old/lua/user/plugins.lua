@@ -32,20 +32,20 @@ packer.init {
 
 -- Run :PackerSync to install plugins
 return packer.startup(function(use)
-    -- Setup
+	-- Setup
 	use "wbthomason/packer.nvim"
 	use "nvim-lua/plenary.nvim"
 
-    -- LSP
+	-- LSP
 	use "neovim/nvim-lspconfig"
 	use "williamboman/nvim-lsp-installer"
 
-    -- Completion
-    use "ms-jpq/coq_nvim"
-    use "ms-jpq/coq.artifacts"
+	-- Completion
+	use "ms-jpq/coq_nvim"
+	use "ms-jpq/coq.artifacts"
 
 
-    -- Misc
+	-- Misc
 	use "nvim-telescope/telescope.nvim"
 	use "nvim-treesitter/nvim-treesitter"
 	use "kyazdani42/nvim-web-devicons"
@@ -53,12 +53,12 @@ return packer.startup(function(use)
 	use "windwp/nvim-autopairs"
 	use "akinsho/toggleterm.nvim"
 	use "lewis6991/impatient.nvim"
-    use 'ggandor/lightspeed.nvim'
-    use 'sbdchd/neoformat'
-    use "Pocco81/AutoSave.nvim"
-    use 'nmac427/guess-indent.nvim'
+	use 'ggandor/lightspeed.nvim'
+	use 'sbdchd/neoformat'
+	use "Pocco81/AutoSave.nvim"
+	use 'nmac427/guess-indent.nvim'
 
-    -- Theme
+	-- Theme
 	use "sainnhe/gruvbox-material"
 
 	-- Automatically set up your configuration after cloning packer.nvim

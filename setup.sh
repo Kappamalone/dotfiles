@@ -31,4 +31,3 @@ echo "Linked ~/dotfiles with ~/.config"
 
 # install fonts
 # yay -S --needed tamzen-font
-*/

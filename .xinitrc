@@ -44,11 +44,18 @@ xinput --set-prop $touchpadID 'libinput Accel Speed' 1
 xinput --set-prop $touchpadID 'libinput Accel Profile Enabled' 0, 1 
 xinput --set-prop $touchpadID 'libinput Natural Scrolling Enabled' 1 
 
+# swap caps and escape for prime vim goodness
+setxkbmap -option caps:swapescape
+
+# dual monitor
+xrandr --output eDP1 --primary --mode 1920x1080 --rotate normal --output HDMI2 --mode 1920x1080 --rotate normal --right-of eDP1 
+
 # Fix sluggish repeat key speed
 xset r rate 180 25
-feh --bg-fill ~/dotfiles/wallpapers/gruvbox_1065654.png &
-picom --experimental-backends &
-# polybar default &
-sxhkd &
-exec bspwm
-# exec awesome
+
+feh --bg-fill ~/dotfiles/wallpapers/butterfly.jpg &
+picom &
+polybar default &
+exec i3
+# sxhkd &
+# exec bspwm

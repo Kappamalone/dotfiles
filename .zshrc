@@ -7,6 +7,9 @@ fi
 
 clear 
 
+# Adds this to $PATH
+export PATH=~/.local/bin/:/home/uzman/.cargo/bin:~/.emacs.d/bin/:~/programming/ps2/ps2dev/ee/bin/:$PATH
+
 export CC="/usr/bin/clang"
 export CXX="/usr/bin/clang++"
 export CMAKE_GENERATOR="Ninja"
@@ -15,15 +18,16 @@ export MOZ_USE_XINPUT2=1
 # Aliases
 alias ls='ls --color=auto'
 alias rl='exec zsh'
-alias vim=nvim
-alias fzfvim='nvim $(find ~/* | fzf)'
+alias vim=lvim
+alias fzfvim='lvim $(find ~/* | fzf)'
 alias fzfcd='cd $(find ~/* -type d | fzf)'
 alias fzfcat='cat $(find ~/* | fzf)'
-alias ghidra='sudo _JAVA_AWT_WM_NONREPARENTING=1 /opt/ghidra/ghidraRun'
+alias ghidra='_JAVA_AWT_WM_NONREPARENTING=1 ~/Ghidra/ghidra_10.2.2_PUBLIC/ghidraRun'
 alias recent='cat /var/log/pacman.log | grep "installed\|removed"'
 alias battery='cat /sys/class/power_supply/BAT0/capacity'
 alias wattage="awk '{print \$1*10^-6 \" W\"}' /sys/class/power_supply/BAT0/power_now"
 alias gbuds="bluetoothctl connect 80:9F:F5:0D:C1:A4"
+alias gbudsr="bluetoothctl disconnect && gbuds"
 # /Aliases
 
 # Misc
@@ -41,7 +45,6 @@ histsearch () {
 
 extractarchive() {
     bsdtar -xzvf "$1"
-    rm "$1"
 }
 # /Misc
 
