@@ -35,3 +35,12 @@ end, { desc = "Grep (cwd)" })
 map("n", "<leader>sg", function()
   require("lazyvim.util").pick("grep")()
 end, { desc = "Grep (root dir)" })
+
+-- Set a new config path
+vim.keymap.del("n", "<leader>fc")
+map("n", "<leader>fc", function()
+  require("lazyvim.util").pick("files", {
+    cwd = vim.fn.expand("~/dotfiles"),
+  })()
+end, { desc = "Find Files (my config)" })
+

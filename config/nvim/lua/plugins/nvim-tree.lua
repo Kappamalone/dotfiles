@@ -36,7 +36,7 @@ return {
     opts = {
       -- Keep the tree root FIXED; do not sync with cwd
       sync_root_with_cwd = true,
-      respect_buf_cwd = false, -- tree ignores buffer-local cwd changes
+      respect_buf_cwd = true, -- tree ignores buffer-local cwd changes
 
       -- Highlight current file in tree but DO NOT re-root the tree
       update_focused_file = {

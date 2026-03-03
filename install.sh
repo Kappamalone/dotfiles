@@ -44,14 +44,15 @@ link_one_to_home() {
     return
   fi
 
-  if [[ "$name" != .* ]]; then
-    echo "⏭️  Skipping $name (not a dotfile)"
+  # Special handling for .config at repo root: always MERGE into ~/.config
+  if [[ "$name" == "config" ]]; then
+    handle_config_dir "$src"
     return
   fi
 
-  # Special handling for .config at repo root: always MERGE into ~/.config
-  if [[ "$name" == ".config" ]]; then
-    handle_config_dir "$src"
+
+  if [[ "$name" != .* ]]; then
+    echo "⏭️  Skipping $name (not a dotfile)"
     return
   fi
 
