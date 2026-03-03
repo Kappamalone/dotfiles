@@ -1,0 +1,8 @@
+# .clangd or ~/.config/clangd/config.yaml
+---
+If:
+  PathMatch: [".*\\.(c|cc|cpp|cxx|h|hpp)$"]
+Completion:
+  ArgumentLists: Delimiters
+  # CodePatterns: None            # ← disables 'for/if/...~' pattern suggestions
+  # Optional: make function calls insert only () without placeholders:
