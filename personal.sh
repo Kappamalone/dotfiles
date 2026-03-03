@@ -2,8 +2,8 @@
 #
 # dependencies: need an nvim 11.0+ alias
 
-alias zawahirtools="PATH=$HOME/cmake-bin/bin:$PATH"
-alias nvim="VIMRUNTIME=~/neovim/runtime ~/neovim/build/bin/nvim"
+# alias zawahirtools="PATH=$HOME/cmake-bin/bin:$PATH"
+# alias nvim="VIMRUNTIME=~/neovim/runtime ~/neovim/build/bin/nvim"
 
 # git aliases
 alias gds="git diff --staged"
