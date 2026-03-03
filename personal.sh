@@ -23,3 +23,6 @@ git_branch_segment() {
 }
 
 export PS1="\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[36m\]\$(git_branch_segment)\[\e[0m\]\$ "
+
+USR_BIN="$HOME/usr/bin"
+export PATH="$USR_BIN:$PATH"

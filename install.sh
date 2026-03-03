@@ -106,3 +106,67 @@ done
 
 git config user.name "Kappamalone"
 git config user.email "uzman.zawahir1@gmail.com"
+
+# DEPENDENCIES:
+#
+# Install only if NOT already on PATH.
+
+USR_BIN="$HOME/usr/bin"
+mkdir -p "$USR_BIN"
+# Prepend so a freshly installed tool is usable in this run;
+# does NOT force install if a system one already exists.
+export PATH="$USR_BIN:$PATH"
+
+on_path() { command -v "$1" >/dev/null 2>&1; }
+is_elf()   { file -b "$1" 2>/dev/null | grep -q '^ELF'; }
+
+install_tmux_if_missing() {
+  if on_path tmux; then
+    echo "✅ tmux already on PATH at: $(command -v tmux)"
+    return 0
+  fi
+
+  echo "⬇️  Installing tmux (AppImage) into $USR_BIN ..."
+  tmp="$(mktemp)"
+  if curl -fsSL \
+      "https://github.com/nelsonenzo/tmux-appimage/releases/latest/download/tmux.appimage" \
+      -o "$tmp"; then
+    if is_elf "$tmp"; then
+      install -m 0755 "$tmp" "$USR_BIN/tmux"
+      echo "✅ tmux installed → $USR_BIN/tmux"
+    else
+      echo "❌ Downloaded tmux file is not an ELF binary (likely a 404 HTML). Skipping."
+    fi
+  else
+    echo "❌ Failed to download tmux AppImage. Skipping."
+  fi
+  rm -f "$tmp"
+}
+
+install_rg_if_missing() {
+  if on_path rg; then
+    echo "✅ rg already on PATH at: $(command -v rg)"
+    return 0
+  fi
+
+  echo "⬇️  Installing ripgrep (static musl) into $USR_BIN ..."
+  tmpd="$(mktemp -d)"
+  if curl -fsSL \
+      "https://github.com/BurntSushi/ripgrep/releases/latest/download/ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz" \
+      -o "$tmpd/rg.tgz"; then
+    tar -xzf "$tmpd/rg.tgz" -C "$tmpd"
+    rgpath="$(find "$tmpd" -type f -name rg -perm -u+x | head -n1 || true)"
+    if [[ -n "$rgpath" ]] && is_elf "$rgpath"; then
+      install -m 0755 "$rgpath" "$USR_BIN/rg"
+      echo "✅ rg installed → $USR_BIN/rg"
+    else
+      echo "❌ Could not locate a valid rg binary after extraction. Skipping."
+    fi
+  else
+    echo "❌ Failed to download ripgrep. Skipping."
+  fi
+  rm -rf "$tmpd"
+}
+
+install_tmux_if_missing
+install_rg_if_missing
