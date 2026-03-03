@@ -103,3 +103,6 @@ shopt -s dotglob nullglob
 for item in "$DOTFILES_DIR"/*; do
   link_one_to_home "$item"
 done
+
+git config user.name "Kappamalone"
+git config user.email "uzman.zawahir1@gmail.com"
