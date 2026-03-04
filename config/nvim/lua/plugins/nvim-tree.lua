@@ -1,5 +1,9 @@
 -- ~/.config/nvim/lua/plugins/nvim-tree.lua
 return {
+  -- 1) Turn off Neo-tree (LazyVim’s default explorer)
+  { "nvim-neo-tree/neo-tree.nvim", enabled = false },
+
+  -- 2) Use nvim-tree instead
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- for icons
@@ -29,21 +33,19 @@ return {
         end,
         desc = "Explorer NvimTree (cwd)",
       },
+      -- Keep <leader>e / <leader>E aliases (like LazyVim’s defaults)
+      { "<leader>e", "<leader>fe", desc = "Explorer NvimTree (Root Dir)", remap = true },
+      { "<leader>E", "<leader>fE", desc = "Explorer NvimTree (cwd)",     remap = true },
 
-      { "<leader>e", "<leader>fE", desc = "Explorer NvimTree (cwd)", remap = true },
-      { "<leader>E", "<leader>fe", desc = "Explorer NvimTree (Root Dir)",     remap = true },
+      -- Quality-of-life: common nvim-tree keys you likely used in LunarVim
+      { "<C-n>", "<cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree" },
+      { "<leader>fq", "<cmd>NvimTreeFindFile<CR>", desc = "Reveal current file in tree" },
     },
     opts = {
-      -- Keep the tree root FIXED; do not sync with cwd
+      -- Mirrors the typical LunarVim feel while staying close to nvim-tree defaults
       sync_root_with_cwd = true,
-      respect_buf_cwd = true, -- tree ignores buffer-local cwd changes
-
-      -- Highlight current file in tree but DO NOT re-root the tree
-      update_focused_file = {
-        enable = true,
-        update_root = false,
-      },
-
+      respect_buf_cwd = true,
+      update_focused_file = { enable = true, update_root = true },
       view = { width = 30, side = "left" },
       renderer = {
         group_empty = true,
@@ -52,66 +54,10 @@ return {
       },
       filters = { dotfiles = false, git_ignored = false },
       git = { enable = true, ignore = false, timeout = 400 },
-
-      -- Usual file-open behavior
       actions = { open_file = { quit_on_open = false, resize_window = true } },
     },
     config = function(_, opts)
       require("nvim-tree").setup(opts)
-
-      -- Add a tree-local mapping to set cwd to the node’s directory
-      local api = require("nvim-tree.api")
-      local function on_attach(bufnr)
-        local function map(lhs, rhs, desc)
-          vim.keymap.set("n", lhs, rhs, { buffer = bufnr, noremap = true, silent = true, desc = desc })
-        end
-
-        -- Your usual nvim-tree mappings can go here (optional)
-        -- map("<CR>", api.node.open.edit, "Open")
-
-        local function set_cwd_to_node(global)
-          local node = api.tree.get_node_under_cursor()
-          if not node then return end
-
-          local path = node.absolute_path or node.link_to or node.name
-          local uv = vim.uv or vim.loop
-          local stat = uv.fs_stat(path)
-
-          local dir = path
-          if not (stat and stat.type == "directory") then
-            dir = vim.fs.dirname(path)
-          end
-
-          local cmd = global and "cd" or "lcd" -- choose global or window-local
-          vim.cmd(cmd .. " " .. vim.fn.fnameescape(dir))
-          vim.notify(string.format("%s → %s", cmd, dir))
-        end
-
-        -- <leader>cd (global): set cwd to the node’s directory, WITHOUT changing tree root
-        map("<leader>cd", function() set_cwd_to_node(true) end, "Set cwd to node directory (global)")
-        -- Optional alternative: window-local cwd
-        -- map("<leader>cD", function() set_cwd_to_node(false) end, "Set lcd to node directory (window)")
-      end
-
-      -- Attach our mappings to nvim-tree buffer(s)
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "NvimTree",
-        callback = function(args) on_attach(args.buf) end,
-      })
-
-      -- OPTIONAL: If you also want cwd to follow opened files automatically (root stays fixed),
-      -- uncomment this autocmd. Otherwise, rely only on <leader>cd inside the tree.
-      -- vim.api.nvim_create_autocmd("BufEnter", {
-      --   callback = function(ev)
-      --     -- Skip special buffers and the tree itself
-      --     if vim.bo[ev.buf].buftype ~= "" then return end
-      --     if vim.bo[ev.buf].filetype == "NvimTree" then return end
-      --     local file = vim.api.nvim_buf_get_name(ev.buf)
-      --     if file == "" then return end
-      --     local dir = vim.fs.dirname(file)
-      --     vim.cmd("cd " .. vim.fn.fnameescape(dir)) -- or "lcd" for window-local
-      --   end,
-      -- })
     end,
   },
 
