@@ -5,8 +5,12 @@
 # - Skips from a preconfigured list
 # - Special handling for .config:
 #     Always MERGE: ensures ~/.config exists and links each entry inside .config
+#
 
 set -euo pipefail
+
+git config user.name "Kappamalone"
+git config user.email "uzman.zawahir1@gmail.com"
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 echo "Dotfiles directory: $DOTFILES_DIR"
@@ -104,9 +108,6 @@ shopt -s dotglob nullglob
 for item in "$DOTFILES_DIR"/*; do
   link_one_to_home "$item"
 done
-
-git config user.name "Kappamalone"
-git config user.email "uzman.zawahir1@gmail.com"
 
 # DEPENDENCIES:
 #

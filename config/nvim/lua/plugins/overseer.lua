@@ -21,7 +21,7 @@ return {
     overseer.setup(opts)
 
     local function project_root()
-      return vim.fn.getcwd()
+      return LazyVim.root()
     end
 
     overseer.register_template({
