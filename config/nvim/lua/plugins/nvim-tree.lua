@@ -1,4 +1,5 @@
 -- ~/.config/nvim/lua/plugins/nvim-tree.lua
+-- TODO: command to get full path from tree
 return {
   {
     "nvim-tree/nvim-tree.lua",

@@ -13,14 +13,31 @@ return {
   },
   keys = {
     { "<leader>ot", "<cmd>OverseerToggle<cr>", desc = "Overseer: Task list" },
-    { "<leader>oc", "<cmd>OverseerRun<cr>",    desc = "Overseer: Compile" },
+    { "<leader>oo", "<cmd>OverseerRun<cr>",    desc = "Overseer: Compile" }, -- TODO: bind this directly to ./compile.sh
     { "<leader>or", "<cmd>OverseerRestartLast<cr>",    desc = "Overseer: Recompile" },
+    { "<leader>op", function()
+        local input = vim.fn.input("Set project root path: ", vim.g.MANUAL_PROJECT_ROOT or vim.loop.cwd() or "", "dir")
+        if input ~= nil and input ~= "" then
+          vim.g.MANUAL_PROJECT_ROOT = vim.fn.fnamemodify(input, ":p")
+          vim.notify("Project root set to: " .. vim.g.MANUAL_PROJECT_ROOT, vim.log.levels.INFO)
+        end
+      end,
+      desc = "Overseer: Prompt & set project root"
+    },
+
   },
   config = function(_, opts)
     local overseer = require("overseer")
     overseer.setup(opts)
 
+    
+    vim.g.MANUAL_PROJECT_ROOT = vim.g.MANUAL_PROJECT_ROOT or nil
+
     local function project_root()
+      -- Prefer manual root if set; fall back to LazyVim root
+      if vim.g.MANUAL_PROJECT_ROOT and vim.g.MANUAL_PROJECT_ROOT ~= "" then
+        return vim.g.MANUAL_PROJECT_ROOT
+      end
       return LazyVim.root()
     end
 
