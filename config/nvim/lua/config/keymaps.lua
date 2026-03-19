@@ -8,6 +8,8 @@ local map = vim.keymap.set
 vim.keymap.del("n", "<leader>bl")
 vim.keymap.del("n", "<leader>br")
 
+-- TODO: remap <leader>bo to remove all unpinned buffers so i stop screwing myself over
+
 -- For C++
 vim.keymap.set("n","<leader>ch", "<cmd>LspClangdSwitchSourceHeader<cr>",{ desc = "Switch Source/Header (C/C++)" })
 
