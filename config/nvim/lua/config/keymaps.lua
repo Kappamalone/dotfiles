@@ -4,10 +4,6 @@
 
 local map = vim.keymap.set
 
--- I should rely on pinned buffers
-vim.keymap.del("n", "<leader>bl")
-vim.keymap.del("n", "<leader>br")
-
 -- TODO: remap <leader>bo to remove all unpinned buffers so i stop screwing myself over
 
 -- For C++
