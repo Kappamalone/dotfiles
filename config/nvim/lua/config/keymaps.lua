@@ -4,10 +4,12 @@
 
 local map = vim.keymap.set
 
--- TODO: remap <leader>bo to remove all unpinned buffers so i stop screwing myself over
-
 -- For C++
 vim.keymap.set("n","<leader>ch", "<cmd>LspClangdSwitchSourceHeader<cr>",{ desc = "Switch Source/Header (C/C++)" })
+
+-- Note to self:
+-- I need to understand how root vs cwd works
+-- I think they're both arbitrary? with root being set by things like nvim-tree and cwd being set by us
 
 -- Swap cwd and root commands, since cwd should be the common case
 vim.keymap.del("n", "<leader><space>")

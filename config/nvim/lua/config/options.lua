@@ -6,6 +6,7 @@ vim.g.snacks_animate = false
 vim.opt.relativenumber = false
 vim.g.autoformat = false
 vim.opt.clipboard = "unnamedplus"
+vim.o.showtabline = 2
 
 -- === Core-dump helpers ===
 -- User-configurable globals (can also be set in project-specific files)
