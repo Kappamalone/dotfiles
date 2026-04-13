@@ -8,7 +8,9 @@ vim.g.autoformat = false
 vim.opt.clipboard = "unnamedplus"
 vim.o.showtabline = 2
 
--- === Core-dump helpers ===
+-- === GDB Helpers ===
+-- TODO: need to integrate this with dap so that we set the build once then use it continuously
+--
 -- User-configurable globals (can also be set in project-specific files)
 -- Example:
 --   vim.g.core_exe = "/path/to/build/my_app"

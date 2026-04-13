@@ -44,3 +44,16 @@ map("n", "<leader>fc", function()
   })()
 end, { desc = "Find Files (my config)" })
 
+-- Disable macros completely
+vim.keymap.set("n", "q", "<nop>")
+vim.keymap.set("n", "@", "<nop>")
+
+-- Swap step over / step out for DAP
+local dap = require("dap")
+vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "Step Over" })
+vim.keymap.set("n", "<leader>dO", dap.step_out,  { desc = "Step Out" })
+
+-- Poor man's M-x compile
+vim.keymap.set("n", "<leader>to", function()
+  require("util.compile").run()
+end, { desc = "Compile: ./compile.sh" })

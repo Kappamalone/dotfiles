@@ -6,11 +6,13 @@ LazyExtras that I use:
 - coding.blink
 - editor.neo-tree
 - editor.snacks_picker
+- dap.core + Mason to install cpp-tools
+  - make sure to run `ulimit -c unlimited` to obtain core dumps
+  - find where cores are located: `cat /proc/sys/kernel/core_pattern`
+  - compile executable with `-g` to get debug symbols
 
 Treesitter disabled. Grug-far relies on somewhat new rg.
 
-TODO: easier quick fix trouble display (also vertical maybe?)
+TODO: automatically jump to first quickfix item
 
-TODO: replacing overseer to just be a compile to the right split automatically by finding a compile.sh at some "root"
-  TODO: potentially make overseer vertical and on the right
-  TODO: overseer automatically open output when compile
+TODO: make debugging executable and most recent core ergonomic
