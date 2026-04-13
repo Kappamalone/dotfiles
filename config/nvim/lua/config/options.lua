@@ -7,9 +7,11 @@ vim.opt.relativenumber = false
 vim.g.autoformat = false
 vim.opt.clipboard = "unnamedplus"
 vim.o.showtabline = 2
+vim.diagnostic.enable(false)
 
 -- === GDB Helpers ===
--- TODO: need to integrate this with dap so that we set the build once then use it continuously
+-- TODO: need to integrate this with dap so that we set the exe + core once then use it continuously
+-- Also put this in a separate module
 --
 -- User-configurable globals (can also be set in project-specific files)
 -- Example:

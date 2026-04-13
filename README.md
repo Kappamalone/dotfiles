@@ -16,3 +16,10 @@ Treesitter disabled. Grug-far relies on somewhat new rg.
 TODO: automatically jump to first quickfix item
 
 TODO: make debugging executable and most recent core ergonomic
+TODO: need to setup commands to set tab local project root dir
+
+TODO: properly understand and document root vs cwd across all plugins, maybe even refactor how it works
+Things that modify this state:
+- nvim-tree
+- lsp when jumping to file definitions (eg STL files on local machine)
+- manual invocations
