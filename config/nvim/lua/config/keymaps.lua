@@ -12,6 +12,11 @@ vim.keymap.set("n","<leader>ch", "<cmd>LspClangdSwitchSourceHeader<cr>",{ desc =
 -- I think they're both arbitrary? with root being set by things like nvim-tree and cwd being set by us
 
 -- Swap cwd and root commands, since cwd should be the common case
+-- TODO: replace this clusterfuck with:
+-- default easy file finding/grepping from root -> (space space, space /)
+-- uncommon special directory selected by nvim-tree -> (space ff, space sg)
+-- extra uncommon cwd -> (space fF, space sG)
+
 vim.keymap.del("n", "<leader><space>")
 vim.keymap.del("n", "<leader>ff")
 vim.keymap.del("n", "<leader>fF")
