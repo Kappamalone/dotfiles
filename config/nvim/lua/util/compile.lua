@@ -44,14 +44,32 @@ function M.run()
     -- Clear old output
     vim.api.nvim_buf_set_lines(compile_buf, 0, -1, false, {})
   else
-    vim.cmd("vnew")
+    vim.cmd("vert rightbelow vnew")
+    local new_win = vim.api.nvim_get_current_win()
+    compile_buf = vim.api.nvim_get_current_buf()
+
     compile_buf = vim.api.nvim_get_current_buf()
 
     vim.bo[compile_buf].buftype = "nofile"
     vim.bo[compile_buf].bufhidden = "hide"   -- IMPORTANT: not wipe
+    vim.bo[compile_buf].buflisted = false
     vim.bo[compile_buf].swapfile = false
     vim.bo[compile_buf].filetype = "log"
     vim.api.nvim_buf_set_name(compile_buf, "[compile]")
+    
+    -- Window options (presentation)
+    vim.wo[new_win].wrap          = true
+    vim.wo[new_win].linebreak     = true
+    vim.wo[new_win].breakindent   = true
+    vim.wo[new_win].number        = false
+    vim.wo[new_win].relativenumber= false
+    vim.wo[new_win].signcolumn = "no"
+    vim.wo[new_win].foldcolumn = "0"
+
+    -- resize to 45%
+    local target_width = math.floor(vim.o.columns * 0.40)
+    vim.api.nvim_win_set_width(new_win, target_width)
+
   end
 
   ---------------------------------------------------------------------------
@@ -101,6 +119,14 @@ function M.run()
       end,
     }
   )
+end
+
+function M.set_project_root()
+  local input = vim.fn.input("Set project root path: ", vim.t.MANUAL_PROJECT_ROOT or vim.loop.cwd() or "", "dir")
+  if input ~= nil and input ~= "" then
+    vim.t.MANUAL_PROJECT_ROOT = vim.fn.fnamemodify(input, ":p")
+    vim.notify("Project root set to: " .. vim.t.MANUAL_PROJECT_ROOT, vim.log.levels.INFO)
+  end
 end
 
 return M
