@@ -19,6 +19,44 @@ local function win_for_buf(buf)
   end
 end
 
+local function autoscroll_if_at_bottom_and_not_focused(buf)
+  local win = win_for_buf(buf)
+  if not win then
+    return
+  end
+
+  local wininfo = vim.fn.getwininfo(win)[1]
+  if not wininfo then
+    return
+  end
+
+  local total_lines = vim.api.nvim_buf_line_count(buf)
+  if vim.api.nvim_get_current_win() ~= win then
+    vim.api.nvim_win_set_cursor(win, { total_lines, 0 })
+  end
+end
+
+local function apply_window_style(win)
+  vim.wo[win].wrap          = true
+  vim.wo[win].linebreak     = true
+  vim.wo[win].breakindent   = true
+  vim.wo[win].number        = false
+  vim.wo[win].relativenumber= false
+  vim.wo[win].signcolumn = "no"
+  vim.wo[win].foldcolumn = "0"
+  vim.wo[win].winfixwidth = true
+end
+
+local function strip_ansi(lines)
+  local clean = {}
+  for _, line in ipairs(lines) do
+    -- remove ANSI escape codes
+    line = line:gsub("\27%[[%d;]*m", "")
+    table.insert(clean, line)
+  end
+  return clean
+end
+
 function M.run()
   local root = project_root()
   local script = root .. "/compile.sh"
@@ -31,6 +69,8 @@ function M.run()
   ---------------------------------------------------------------------------
   -- Reuse or create compile buffer + window
   ---------------------------------------------------------------------------
+  local cur_win = vim.api.nvim_get_current_win()
+
   if compile_buf and vim.api.nvim_buf_is_valid(compile_buf) then
     local win = win_for_buf(compile_buf)
 
@@ -48,29 +88,25 @@ function M.run()
     local new_win = vim.api.nvim_get_current_win()
     compile_buf = vim.api.nvim_get_current_buf()
 
-    compile_buf = vim.api.nvim_get_current_buf()
-
     vim.bo[compile_buf].buftype = "nofile"
     vim.bo[compile_buf].bufhidden = "hide"   -- IMPORTANT: not wipe
     vim.bo[compile_buf].buflisted = false
     vim.bo[compile_buf].swapfile = false
     vim.bo[compile_buf].filetype = "log"
     vim.api.nvim_buf_set_name(compile_buf, "[compile]")
-    
-    -- Window options (presentation)
-    vim.wo[new_win].wrap          = true
-    vim.wo[new_win].linebreak     = true
-    vim.wo[new_win].breakindent   = true
-    vim.wo[new_win].number        = false
-    vim.wo[new_win].relativenumber= false
-    vim.wo[new_win].signcolumn = "no"
-    vim.wo[new_win].foldcolumn = "0"
 
+    apply_window_style(new_win)
+    
     -- resize to 45%
     local target_width = math.floor(vim.o.columns * 0.40)
     vim.api.nvim_win_set_width(new_win, target_width)
-
   end
+  
+  -- Restore cursor position
+  if vim.api.nvim_win_is_valid(cur_win) then
+    vim.api.nvim_set_current_win(cur_win)
+  end
+
 
   ---------------------------------------------------------------------------
   -- Reset quickfix
@@ -100,14 +136,20 @@ function M.run()
 
       on_stdout = function(_, data)
         if not data then return end
-        vim.api.nvim_buf_set_lines(compile_buf, -1, -1, false, data)
-        vim.fn.setqflist({}, "a", { lines = data })
+        local clean = strip_ansi(data)
+        vim.api.nvim_buf_set_lines(compile_buf, -1, -1, false, clean)
+        vim.fn.setqflist({}, "a", { lines = clean })
+
+        autoscroll_if_at_bottom_and_not_focused(compile_buf)
       end,
 
       on_stderr = function(_, data)
         if not data then return end
-        vim.api.nvim_buf_set_lines(compile_buf, -1, -1, false, data)
-        vim.fn.setqflist({}, "a", { lines = data })
+        local clean = strip_ansi(data)
+        vim.api.nvim_buf_set_lines(compile_buf, -1, -1, false, clean)
+        vim.fn.setqflist({}, "a", { lines = clean })
+
+        autoscroll_if_at_bottom_and_not_focused(compile_buf)
       end,
 
       on_exit = function(_, code)
@@ -126,6 +168,37 @@ function M.set_project_root()
   if input ~= nil and input ~= "" then
     vim.t.MANUAL_PROJECT_ROOT = vim.fn.fnamemodify(input, ":p")
     vim.notify("Project root set to: " .. vim.t.MANUAL_PROJECT_ROOT, vim.log.levels.INFO)
+  end
+end
+
+function M.toggle()
+  if not compile_buf or not vim.api.nvim_buf_is_valid(compile_buf) then
+    vim.notify("No compile buffer to toggle", vim.log.levels.WARN)
+    return
+  end
+
+  local win = win_for_buf(compile_buf)
+
+  if win then
+    -- Hide the window (buffer stays alive)
+    vim.api.nvim_win_close(win, false)
+  else
+    -- Show the buffer again without stealing focus
+    local cur_win = vim.api.nvim_get_current_win()
+
+    vim.cmd("vert rightbelow vsplit")
+    local new_win = vim.api.nvim_get_current_win()
+    vim.api.nvim_win_set_buf(new_win, compile_buf)
+
+    apply_window_style(new_win)
+
+    local target_width = math.floor(vim.o.columns * 0.40)
+    vim.api.nvim_win_set_width(new_win, target_width)
+
+    -- Restore focus
+    if vim.api.nvim_win_is_valid(cur_win) then
+      vim.api.nvim_set_current_win(cur_win)
+    end
   end
 end
 

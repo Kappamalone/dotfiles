@@ -59,5 +59,6 @@ vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "Step Over" })
 vim.keymap.set("n", "<leader>dO", dap.step_out,  { desc = "Step Out" })
 
 -- Poor man's M-x compile
-vim.keymap.set("n", "<leader>to", function() require("util.compile").run() end, { desc = "Compile: ./compile.sh" })
-vim.keymap.set("n", "<leader>tp", function() require("util.compile").set_project_root() end, { desc = "Set project root if LazyVim.root() is incorrect" })
+vim.keymap.set("n", "<leader>oo", function() require("util.compile").run() end, { desc = "Compile: ./compile.sh" })
+vim.keymap.set("n", "<leader>op", function() require("util.compile").set_project_root() end, { desc = "Set project root if LazyVim.root() is incorrect" })
+vim.keymap.set("n", "<leader>ot", function() require("util.compile").toggle() end, { desc = "Toggle compile window" })

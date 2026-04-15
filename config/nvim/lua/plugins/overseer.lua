@@ -1,6 +1,7 @@
 -- lua/plugins/overseer.lua
 return {
   "stevearc/overseer.nvim",
+  enabled = false,
   event = "VeryLazy",
   opts = {
     use_terminal = false,
