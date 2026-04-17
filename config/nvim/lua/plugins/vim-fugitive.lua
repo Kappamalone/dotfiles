@@ -3,8 +3,8 @@ return {
     "tpope/vim-fugitive",
     lazy = false,
     keys = {
-      {"<leader>gg", "<cmd>Git<cr>", desc="Fugitive: git status"},
-      {"<leader>gd", "<cmd>Gvdiffsplit HEAD<cr>", desc="Fugitive: diff file vs HEAD"},
+      { "<leader>gg", "<cmd>Git<cr>", desc="Fugitive: git status"},
+      { "<leader>gd", "<cmd>Gvdiffsplit HEAD<cr>", desc="Fugitive: diff file vs HEAD"},
       { "<leader>gl", "<cmd>GcLog -- %<cr>", desc = "Fugitive: Git log -- %" },
       { "<leader>gL", "<cmd>vertical Git log<cr>", desc = "Fugitive: Git log" },
       { "<leader>gb", "<cmd>Git blame<cr>", desc = "Fugitive: Git blame" },
