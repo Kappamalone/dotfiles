@@ -4,8 +4,9 @@ return {
     lazy = false,
     keys = {
       { "<leader>gg", "<cmd>Git<cr>", desc="Fugitive: git status"},
-      { "<leader>gd", "<cmd>Gvdiffsplit HEAD<cr>", desc="Fugitive: diff file vs HEAD"},
-      { "<leader>gl", "<cmd>GcLog -- %<cr>", desc = "Fugitive: Git log -- %" },
+      { "<leader>gd", "<cmd>Gvdiffsplit HEAD<cr>", desc="Fugitive: diff fugitive object vs HEAD"},
+      { "<leader>gD", "<cmd>tab Gvdiffsplit HEAD<cr>", desc="Fugitive: diff fugitive object vs HEAD (tab)"},
+      { "<leader>gl", "<cmd>vertical Git log -p %<cr>", desc = "Fugitive: Git log commits of file"},
       { "<leader>gL", "<cmd>vertical Git log<cr>", desc = "Fugitive: Git log" },
       { "<leader>gb", "<cmd>Git blame<cr>", desc = "Fugitive: Git blame" },
       { "<leader>gc", "<cmd>Git commit<cr>", desc = "Fugitive: Git commit" },
