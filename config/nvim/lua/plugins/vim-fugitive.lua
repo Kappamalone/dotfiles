@@ -68,6 +68,15 @@ return {
           end
         end,
       })
+      
+      -- start us off in insertion mode when writing a git commit
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "gitcommit",
+        callback = function()
+          vim.cmd("startinsert")
+        end,
+      })
+
     end
   },
 }
