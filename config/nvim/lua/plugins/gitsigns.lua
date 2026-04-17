@@ -26,8 +26,8 @@ return {
       { "<leader>gk", function() require("gitsigns").nav_hunk("prev", { navigation_message = false }) end, desc = "Prev Hunk" },
 
       -- blame / preview
-      { "<leader>gl", function() require("gitsigns").blame_line() end, desc = "Blame Line" },
-      { "<leader>gL", function() require("gitsigns").blame_line({ full = true }) end, desc = "Blame Line (full)" },
+      -- { "<leader>gl", function() require("gitsigns").blame_line() end, desc = "Blame Line" },
+      -- { "<leader>gL", function() require("gitsigns").blame_line({ full = true }) end, desc = "Blame Line (full)" },
       { "<leader>gp", function() require("gitsigns").preview_hunk() end, desc = "Preview Hunk" },
 
       -- stage / reset
@@ -37,7 +37,7 @@ return {
       { "<leader>gu", function() require("gitsigns").undo_stage_hunk() end,                desc = "Undo Stage Hunk" },
 
       -- diff
-      { "<leader>gd", function() require("gitsigns").diffthis("HEAD") end, desc = "Git Diff (HEAD)" },
+      -- { "<leader>gd", function() require("gitsigns").diffthis("HEAD") end, desc = "Git Diff (HEAD)" },
     },
   },
 
@@ -60,12 +60,12 @@ return {
     keys = {
       -- use Lua API; Lazy.nvim will auto-load telescope on keypress
       { "<leader>go", function() require("telescope.builtin").git_status()    end, desc = "Open changed file" },
-      { "<leader>gb", function() require("telescope.builtin").git_branches()  end, desc = "Checkout branch" },
-      { "<leader>gc", function() require("telescope.builtin").git_commits()   end, desc = "Checkout commit" },
-      { "<leader>gC", function() require("telescope.builtin").git_bcommits()  end, desc = "Checkout commit (current file)" },
+      -- { "<leader>gb", function() require("telescope.builtin").git_branches()  end, desc = "Checkout branch" },
+      -- { "<leader>gc", function() require("telescope.builtin").git_commits()   end, desc = "Checkout commit" },
+      -- { "<leader>gC", function() require("telescope.builtin").git_bcommits()  end, desc = "Checkout commit (current file)" },
 
       -- also expose branches under the Search menu like LunarVim
-      { "<leader>sb", function() require("telescope.builtin").git_branches()  end, desc = "Checkout branch (Search menu)" },
+      -- { "<leader>sb", function() require("telescope.builtin").git_branches()  end, desc = "Checkout branch (Search menu)" },
     },
   },
 
