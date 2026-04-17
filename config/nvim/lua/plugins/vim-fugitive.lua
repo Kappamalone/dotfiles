@@ -10,7 +10,7 @@ return {
       { "<leader>gb", "<cmd>Git blame<cr>", desc = "Fugitive: Git blame" },
       { "<leader>gc", "<cmd>Git commit<cr>", desc = "Fugitive: Git commit" },
       { "<leader>gS", "<cmd>vertical Git diff --staged<cr>", desc = "Fugitive: Git diff --staged" },
-      { "<leader>gp", "<cmd>Dispatch git push<cr>", desc = "Fugitive: Git push (async)" },
+      { "<leader>gp", "<cmd>Git push<cr>", desc = "Fugitive: Git push (async)" },
     },
     config = function(_, opts)
       -- clangd notification spams without this
