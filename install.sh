@@ -8,7 +8,6 @@
 #
 
 set -euo pipefail
-
 git config user.name "Kappamalone"
 git config user.email "uzman.zawahir1@gmail.com"
 
@@ -172,3 +171,27 @@ install_rg_if_missing() {
 
 install_tmux_if_missing
 install_rg_if_missing
+
+install_personal_sh() {
+  local source_line="source \"$DOTFILES_DIR/personal.sh\""
+  local marker="# >>> dotfiles personal.sh >>>"
+  local found_rc=0
+
+  for rc in "$HOME/.bashrc" "$HOME/.zshrc"; do
+    [[ -f "$rc" ]] || continue
+    found_rc=1
+    if grep -Fq "$marker" "$rc"; then
+      echo "✅ personal.sh already sourced in $rc"
+      continue
+    fi
+    printf '\n%s\n%s\n' "$marker" "$source_line" >> "$rc"
+    echo "✅ Appended personal.sh source to $rc"
+  done
+
+  if [[ "$found_rc" -eq 0 ]]; then
+    echo "ℹ️  No ~/.bashrc or ~/.zshrc found — add manually:"
+    echo "    $source_line"
+  fi
+}
+
+install_personal_sh
