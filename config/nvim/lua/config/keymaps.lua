@@ -62,3 +62,8 @@ vim.keymap.set("n", "<leader>dO", dap.step_out,  { desc = "Step Out" })
 vim.keymap.set("n", "<leader>oo", function() require("util.compile").run() end, { desc = "Compile: ./compile.sh" })
 vim.keymap.set("n", "<leader>op", function() require("util.compile").set_project_root() end, { desc = "Set project root if LazyVim.root() is incorrect" })
 vim.keymap.set("n", "<leader>ot", function() require("util.compile").toggle() end, { desc = "Toggle compile window" })
+
+vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]])
+vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]])
+vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]])
+vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]])

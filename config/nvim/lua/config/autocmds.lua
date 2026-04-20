@@ -31,3 +31,17 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
     end
   end,
 })
+
+-- Toggle ClaudeCode from inside its terminal buffer with `jk`
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function(event)
+    local buf = event.buf
+    local name = vim.api.nvim_buf_get_name(buf)
+    if vim.bo[buf].buftype == "terminal" and name:match("claude") then
+      vim.keymap.set("t", "jk", "<cmd>ClaudeCode<cr>", {
+        buffer = buf,
+        silent = true,
+      })
+    end
+  end,
+})

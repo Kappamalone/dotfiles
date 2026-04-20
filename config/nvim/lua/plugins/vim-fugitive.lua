@@ -66,8 +66,8 @@ return {
               { buffer = buf, silent = true, nowait = true }
             )
 
-            -- Optional but recommended: clean lifecycle
-            vim.bo[buf].bufhidden = "wipe"
+            -- this fucks up toggle term and claude for some reason
+            -- vim.bo[buf].bufhidden = "wipe"
           end
         end,
       })
