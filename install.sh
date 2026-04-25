@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Symlink dotfiles from this repo into $HOME.
 # - Always verbose
 # - Never overwrites (skips if destination exists)

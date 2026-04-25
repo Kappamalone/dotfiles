@@ -7,6 +7,9 @@ local map = vim.keymap.set
 -- For C++
 vim.keymap.set("n","<leader>ch", "<cmd>LspClangdSwitchSourceHeader<cr>",{ desc = "Switch Source/Header (C/C++)" })
 
+-- No highlight
+vim.keymap.set("n", "<leader>h", "<cmd>nohlsearch<cr>", { desc = "No highlight"})
+
 -- Note to self:
 -- I need to understand how root vs cwd works
 -- I think they're both arbitrary? with root being set by things like nvim-tree and cwd being set by us
@@ -63,6 +66,16 @@ vim.keymap.set("n", "<leader>oo", function() require("util.compile").run() end, 
 vim.keymap.set("n", "<leader>op", function() require("util.compile").set_project_root() end, { desc = "Set project root if LazyVim.root() is incorrect" })
 vim.keymap.set("n", "<leader>ot", function() require("util.compile").toggle() end, { desc = "Toggle compile window" })
 
+-- Debugging
+local debugging = require("util.debugging")
+
+vim.keymap.set("n", "<leader>dn", debugging.set_debug_binary, { desc = "Set debug binary" })
+vim.keymap.set("n", "<leader>dm", debugging.set_core_directory, { desc = "Set core directory" })
+vim.keymap.set("n", "<leader>dd", debugging.dap_run, { desc = "DAP: Debug binary" })
+vim.keymap.set("n", "<leader>dD", debugging.dap_run_latest_core, { desc = "DAP: Debug latest core" })
+vim.keymap.set("n", "<leader>da", debugging.dap_run_with_args, { desc = "DAP: Debug binary with args" })
+
+-- Directional escape from terminal mode
 vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]])
 vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]])
 vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]])

@@ -19,3 +19,5 @@ TODO: make debugging executable and most recent core ergonomic
 
 TODO: need to setup commands to set tab local project root dir
 TODO: commands to set a tcd within nvim-tree and then corresponding grep/find file
+
+TODO: compile buffer split doesn't play nicely with other buffers (force right, stay same width?)
