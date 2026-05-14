@@ -8,6 +8,16 @@ vim.g.autoformat = false
 vim.opt.clipboard = "unnamedplus"
 vim.o.showtabline = 2
 vim.diagnostic.enable(false)
+vim.opt.swapfile = false
+
+-- Use Tree-sitter for folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+-- Prevent weird one‑line folds
+vim.opt.foldminlines = 1
+
 
 -- === GDB Helpers ===
 -- TODO: need to integrate this with dap so that we set the exe + core once then use it continuously

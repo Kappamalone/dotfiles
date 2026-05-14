@@ -26,3 +26,14 @@ export PS1="\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[36m\]\$(git_branch_segment)\[\e[0m\
 
 USR_BIN="$HOME/usr/bin"
 export PATH="$USR_BIN:$PATH"
+
+# tmux
+alias ta="tmux attach"
+alias fixagent="eval $(tmux show-environment -s SSH_AUTH_SOCK)"
+if [ -n "$TMUX" ]; then
+  eval $(tmux show-environment -s SSH_AUTH_SOCK)
+fi
+# if [ -n "$SSH_AUTH_SOCK" ]; then
+#   ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+# fi
+# export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock

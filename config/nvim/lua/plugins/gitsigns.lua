@@ -28,7 +28,7 @@ return {
       -- blame / preview
       -- { "<leader>gl", function() require("gitsigns").blame_line() end, desc = "Blame Line" },
       -- { "<leader>gL", function() require("gitsigns").blame_line({ full = true }) end, desc = "Blame Line (full)" },
-      -- { "<leader>gp", function() require("gitsigns").preview_hunk() end, desc = "Preview Hunk" },
+      { "<leader>gp", function() require("gitsigns").preview_hunk() end, desc = "Preview Hunk" },
 
       -- stage / reset
       { "<leader>gs", function() require("gitsigns").stage_hunk() end,  mode = { "n", "v" }, desc = "Stage Hunk" },

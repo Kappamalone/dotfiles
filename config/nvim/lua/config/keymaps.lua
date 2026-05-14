@@ -65,6 +65,7 @@ vim.keymap.set("n", "<leader>dO", dap.step_out,  { desc = "Step Out" })
 vim.keymap.set("n", "<leader>oo", function() require("util.compile").run() end, { desc = "Compile: ./compile.sh" })
 vim.keymap.set("n", "<leader>op", function() require("util.compile").set_project_root() end, { desc = "Set project root if LazyVim.root() is incorrect" })
 vim.keymap.set("n", "<leader>ot", function() require("util.compile").toggle() end, { desc = "Toggle compile window" })
+vim.keymap.set("n", "<leader>oq", function() require("util.compile").stop() end, { desc = "Kill current job" })
 
 -- Debugging
 local debugging = require("util.debugging")

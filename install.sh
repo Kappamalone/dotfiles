@@ -193,6 +193,35 @@ install_personal_sh() {
     echo "ℹ️  No ~/.bashrc or ~/.zshrc found — add manually:"
     echo "    $source_line"
   fi
+
+}
+
+install_scripting_tools() {
+  echo "🔧 Installing personal CLI tools into $USR_BIN ..."
+
+  # List of scripts (relative to repo root)
+  declare -a PERSONAL_BIN=(
+    "fuzz.sh"
+  )
+
+  local src name dst
+  for src in "${PERSONAL_BIN[@]}"; do
+    name="$(basename "$src" .sh)"   # strip .sh → "fuzz"
+    src_path="$DOTFILES_DIR/$src"
+    dst="$USR_BIN/$name"
+
+    if [[ ! -f "$src_path" ]]; then
+      echo "⚠️  Missing: $src_path"
+      continue
+    fi
+
+    # Link (not copy) so updates to dotfiles are immediate
+    ln -sf "$src_path" "$dst"
+    chmod +x "$src_path"
+
+    echo "✅ Installed $name → $dst"
+  done
 }
 
 install_personal_sh
+install_scripting_tools

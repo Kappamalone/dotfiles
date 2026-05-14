@@ -1,14 +1,15 @@
 return {
   {
     "tpope/vim-fugitive",
+    enabled = true,
     lazy = false,
     keys = {
-      { "<leader>gg", "<cmd>vertical Git<cr>", desc="Fugitive: git status"},
+      { "<leader>gg", "<cmd>aboveleft vertical Git<cr>", desc="Fugitive: git status"},
       { "<leader>gd", "<cmd>Gvdiffsplit HEAD<cr>", desc="Fugitive: diff fugitive object vs HEAD"},
       -- not using, but i think i wanna use it when going through git log
       { "<leader>gD", "<cmd>tab Gvdiffsplit HEAD<cr>", desc="Fugitive: diff fugitive object vs HEAD (tab)"},
       { "<leader>gl", "<cmd>vertical Git log -p %<cr>", desc = "Fugitive: Git log commits of file"},
-      { "<leader>gL", "<cmd>vertical Git log -100<cr>", desc = "Fugitive: Git log" },
+      { "<leader>gL", "<cmd>vertical Git log -100 --decorate<cr>", desc = "Fugitive: Git log" },
       { "<leader>gb", "<cmd>Git blame<cr>", desc = "Fugitive: Git blame" },
       -- not using
       { "<leader>gc", "<cmd>Git commit<cr>", desc = "Fugitive: Git commit" },
@@ -20,6 +21,7 @@ return {
       -- note: bind git commit --amend to <leader>ga?
       -- to checkout older version of current file is :Gread <rev>:%
       -- look into writing personalised git hooks to remind myself/actually run linters/formatters or even git commit templates 
+      -- Gedit other-branch:% is useful as
     },
     config = function(_, opts)
       -- clangd notification spams without this
